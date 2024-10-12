@@ -25,14 +25,18 @@ import { MatCard, MatCardModule } from '@angular/material/card';
     MatListModule,
     MatIconModule,
     AsyncPipe,
+    RouterOutlet,
+    RouterLink,
+    NgIf,
   ]
 })
 export class ShellComponent {
-  private breakpointObserver = inject(BreakpointObserver);
+  isHandset$: Observable<boolean>;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
+  constructor(private breakpointObserver: BreakpointObserver) {
+    this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
       map(result => result.matches),
       shareReplay()
     );
+  }
 }
